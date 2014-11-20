@@ -9,7 +9,7 @@ done
 
 ## prompt for drupal login. Comment this out and fill define DBUSER and DBPASS below to skip this step....
 read -p "Drupal Login: " DUSER;
-stty -echo 
+stty -echo
 read -p "Password: " DPASS;
 stty echo
 #DUSER=''
@@ -36,7 +36,7 @@ while true
 do
   SUB=$(echo ${BASESITE##*/})
   HTTPCODE=$(curl -s --output /dev/null -w "%{http_code}\n" ${BASESITE}/install.php)
-  if [[ "${HTTPCODE}" == 200 ]] 
+  if [[ "${HTTPCODE}" == 200 ]]
   then
     break
   fi
@@ -56,6 +56,6 @@ cat "${SIEGERC}" > ${SIEGERCFILE}
 echo "${SIEGELOGINURL}" >> ${SIEGERCFILE}
 
 echo "siege -R ${SIEGERCFILE} $@"
-siege -R ${SIEGERCFILE} $@
+siege -R ${SIEGERCFILE} $@ -f urls.txt
 
 rm ${SIEGERCFILE}
